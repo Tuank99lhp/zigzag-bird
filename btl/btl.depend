@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1649500600 source:e:\laptrinh\btl\main.cpp
+	"game.h"
+
+1649495905 source:e:\laptrinh\btl\sdl.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	"sdl.h"
+
+1649495885 e:\laptrinh\btl\sdl.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+
+1649503175 e:\laptrinh\btl\game.h
+	<iostream>
+	<vector>
+	<time.h>
+	<cstdlib>
+	<ctime>
+	<cmath>
+	<chrono>
+	<SDL_ttf.h>
+	<string>
+	"sdl.h"
+	"LTexture.h"
+	"Dot.h"
+
+1649505119 source:e:\laptrinh\btl\game.cpp
+	"Game.h"
+
+1649505217 e:\laptrinh\btl\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<string>
+
+1649505194 source:e:\laptrinh\btl\ltexture.cpp
+	"LTexture.h"
+
+1649505252 source:e:\laptrinh\btl\dot.cpp
+	"Dot.h"
+
+1649505309 e:\laptrinh\btl\dot.h
+	"LTexture.h"
+	<SDL.h>
+	<SDL_image.h>
+
