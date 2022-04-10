@@ -31,7 +31,17 @@ void initSDL(SDL_Window* &window, SDL_Renderer* &renderer,
     //Khi chạy ở máy thực hành WinXP ở trường (máy ảo)
     //renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
     if (renderer == nullptr) logSDLError(std::cout, "CreateRenderer", true);
+    int imgFlags = IMG_INIT_PNG;
+    if( !( IMG_Init( imgFlags ) & imgFlags ) )
+	{
+		printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 
+    }
+    if( TTF_Init() == -1 )
+	{
+		printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+
+	}
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
 }

@@ -2,18 +2,19 @@
 1649500600 source:e:\laptrinh\btl\main.cpp
 	"game.h"
 
-1649495905 source:e:\laptrinh\btl\sdl.cpp
+1649615047 source:e:\laptrinh\btl\sdl.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	"sdl.h"
 
-1649495885 e:\laptrinh\btl\sdl.h
+1649614983 e:\laptrinh\btl\sdl.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
 
-1649503175 e:\laptrinh\btl\game.h
+1649615965 e:\laptrinh\btl\game.h
 	<iostream>
 	<vector>
 	<time.h>
@@ -23,26 +24,45 @@
 	<chrono>
 	<SDL_ttf.h>
 	<string>
+	<deque>
 	"sdl.h"
 	"LTexture.h"
 	"Dot.h"
+	"cot.h"
+	"LTimer.h"
 
-1649505119 source:e:\laptrinh\btl\game.cpp
+1649615881 source:e:\laptrinh\btl\game.cpp
 	"Game.h"
 
-1649505217 e:\laptrinh\btl\ltexture.h
+1649615228 e:\laptrinh\btl\ltexture.h
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
 	<string>
 
-1649505194 source:e:\laptrinh\btl\ltexture.cpp
+1649615216 source:e:\laptrinh\btl\ltexture.cpp
 	"LTexture.h"
 
 1649505252 source:e:\laptrinh\btl\dot.cpp
 	"Dot.h"
 
-1649505309 e:\laptrinh\btl\dot.h
+1649613567 e:\laptrinh\btl\dot.h
 	"LTexture.h"
+
+1649610818 e:\laptrinh\btl\cot.h
+	"LTexture.h"
+
+1649611876 source:e:\laptrinh\btl\cot.cpp
+	"cot.h"
+
+1649613064 e:\laptrinh\btl\ltimer.h
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	<string>
+	<sstream>
+
+1649613069 source:e:\laptrinh\btl\ltimer.cpp
+	"LTimer.h"
 

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal = false);
