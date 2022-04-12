@@ -16,7 +16,7 @@ int Game:: Run()
     mp.loadFromFile("image/bkgn.png");
 
 
-    Dot bird(SCREEN_WIDTH/6, SCREEN_HEIGHT/2,0, 3);
+    Dot bird(SCREEN_WIDTH/6, SCREEN_HEIGHT/2,0, 5);
     bird.mTexture.gRenderer = gRenderer;
     bird.mTexture.loadFromFile("image/ship2.png");
 
@@ -56,18 +56,17 @@ int Game:: Run()
         mp.render(scrolling + mp.mWidth,0);
         bird.render();
         sinhcot++;
-        if (sinhcot == 200)
+        if (sinhcot == 100)
         {
             sinhcot = 0;
             de.push_back(new cot);
         }
         if (!de.empty())
         {
-            cot *tmp = de.front();
-            if (tmp->X + tmp->WIDTH < 0)
+            if (de.front()->X + de.front()->WIDTH <= 0)
             {
+                delete de.front();
                 de.pop_front();
-                delete tmp;
             }
             for (auto it = de.begin(); it != de.end(); it ++)
               (*it)->render(top, bottom);
@@ -83,7 +82,8 @@ int Game:: Run()
              y = bird.mPosY;
              bw= bird.WIDTH;
              bh= bird.HEIGHT;
-             if (((x + bw > X && x < X + W)) && (y < Y || y + bh > Y + GAP))
+             //if (((x + bw > X && x < X + W)) && (y < Y - 5 || y + bh > Y + GAP + 5))
+             if (checkcollider(bird, (**it)))
              {
                  gameover.render(SCREEN_WIDTH/2 - gameover.mWidth/2, SCREEN_HEIGHT/2 - gameover.mHeight/2);
                  SDL_RenderPresent(gRenderer);
@@ -98,6 +98,7 @@ int Game:: Run()
                     }
 
                  }
+                 quitSDL(window, gRenderer);
                  return 1;
              }
           }
@@ -130,4 +131,27 @@ int Game:: Run()
     quitSDL(window, gRenderer);
     return 1;
 }
-
+Point<double> Game::xoay(Point<double> a, Point<double> b, double deg)
+{
+    a.x-=b.x;
+    a.y-=b.y;
+    a=a.rotate(-deg);
+    a.x+=b.x;
+    a.y+=b.y;
+    return a;
+}
+bool Game::checkcollider(Dot &b, cot &c)
+{
+    Point cen(b.mPosX + b.WIDTH/2, b.mPosY + b.HEIGHT/2);
+    vector<Point<double> > v1={xoay(Point(b.mPosX,b.mPosY),cen,b.deg),xoay(Point(b.mPosX+b.WIDTH,b.mPosY),cen,b.deg),xoay(Point(b.mPosX+b.WIDTH,b.mPosY+b.HEIGHT),cen,b.deg),xoay(Point(b.mPosX,b.mPosY+b.HEIGHT),cen,b.deg),xoay(Point(b.mPosX,b.mPosY),cen,b.deg)};
+    vector<Point<double> > v2={Point(c.X,0.0),Point(c.X+c.WIDTH,0.0),Point(c.X+c.WIDTH,c.Y-20),Point(c.X,c.Y-20),Point(c.X,0.0)};
+    double nY=c.Y + c.GAP + 20;
+    vector<Point<double> > v3={Point(c.X,nY),Point(c.X+c.WIDTH,nY),Point(c.X+c.WIDTH,1.0*SCREEN_HEIGHT),Point(c.X,1.0*SCREEN_HEIGHT),Point(c.X,nY)};
+    for (int i=0;i<4;++i)
+    {
+       for (int j=0;j<4;++j)
+        {if (!segInter(v1[i],v1[i+1],v2[j],v2[j+1]).empty()) return 1;
+        if (!segInter(v1[i],v1[i+1],v3[j],v3[j+1]).empty()) return 1;}
+    }
+    return 0;
+}

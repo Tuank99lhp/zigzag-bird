@@ -10,11 +10,11 @@ class Dot
         const int SCREEN_WIDTH = 1280;
         const int SCREEN_HEIGHT = 640;
 		//The dimensions of the dot
-		const int WIDTH = 60;
-		const int HEIGHT = 30;
-
+		const double WIDTH = 60;
+		const double HEIGHT = 30;
+        double deg=25;
 		Dot();
-		Dot(int stx,int sty,int vx,int vy);
+		Dot(double stx,double sty,double vx,double vy);
 
 		//Takes key presses and adjusts the dot's velocity
 		void handleEvent( SDL_Event& e );
@@ -27,8 +27,8 @@ class Dot
 
         LTexture mTexture;
 		//The X and Y offsets of the dot
-		int mPosX, mPosY;
+		double mPosX, mPosY;
 		//The velocity of the dot
-		int mVelX, mVelY;
+		double mVelX, mVelY;
 };
 #endif // DOT_H

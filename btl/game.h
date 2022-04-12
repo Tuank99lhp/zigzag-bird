@@ -17,6 +17,9 @@
 #include "Dot.h"
 #include "cot.h"
 #include "LTimer.h"
+#include "giao.h"
+#include "point.h"
+#include "onsegment.h"
 using namespace std;
 
 class Game
@@ -51,5 +54,7 @@ class Game
         const char* WINDOW_TITLE = "con chim thieu nang";
         const int FPS=144;
         const int SCREEN_TICK_PER_FRAME=1000/FPS;
+        bool checkcollider(Dot &b, cot &c);
+        Point<double> xoay(Point<double> a, Point<double> b, double deg);
 };
 #endif // GAME_H

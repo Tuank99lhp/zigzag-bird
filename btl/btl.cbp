@@ -42,7 +42,10 @@
 		<Unit filename="cot.h" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
+		<Unit filename="giao.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="onsegment.h" />
+		<Unit filename="point.h" />
 		<Unit filename="sdl.cpp" />
 		<Unit filename="sdl.h" />
 		<Extensions>

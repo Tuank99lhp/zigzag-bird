@@ -14,7 +14,7 @@
 	<SDL_image.h>
 	<SDL_ttf.h>
 
-1649615965 e:\laptrinh\btl\game.h
+1649739791 e:\laptrinh\btl\game.h
 	<iostream>
 	<vector>
 	<time.h>
@@ -30,8 +30,11 @@
 	"Dot.h"
 	"cot.h"
 	"LTimer.h"
+	"giao.h"
+	"point.h"
+	"onsegment.h"
 
-1649615881 source:e:\laptrinh\btl\game.cpp
+1649774250 source:e:\laptrinh\btl\game.cpp
 	"Game.h"
 
 1649615228 e:\laptrinh\btl\ltexture.h
@@ -40,19 +43,19 @@
 	<SDL_ttf.h>
 	<string>
 
-1649615216 source:e:\laptrinh\btl\ltexture.cpp
+1649744302 source:e:\laptrinh\btl\ltexture.cpp
 	"LTexture.h"
 
-1649505252 source:e:\laptrinh\btl\dot.cpp
+1649739446 source:e:\laptrinh\btl\dot.cpp
 	"Dot.h"
 
-1649613567 e:\laptrinh\btl\dot.h
+1649739474 e:\laptrinh\btl\dot.h
 	"LTexture.h"
 
-1649610818 e:\laptrinh\btl\cot.h
+1649739492 e:\laptrinh\btl\cot.h
 	"LTexture.h"
 
-1649611876 source:e:\laptrinh\btl\cot.cpp
+1649739519 source:e:\laptrinh\btl\cot.cpp
 	"cot.h"
 
 1649613064 e:\laptrinh\btl\ltimer.h
@@ -65,4 +68,15 @@
 
 1649613069 source:e:\laptrinh\btl\ltimer.cpp
 	"LTimer.h"
+
+1649740242 e:\laptrinh\btl\giao.h
+	<set>
+	"Point.h"
+	"OnSegment.h"
+
+1649740539 e:\laptrinh\btl\point.h
+	<tuple>
+
+1649737247 e:\laptrinh\btl\onsegment.h
+	"Point.h"
 

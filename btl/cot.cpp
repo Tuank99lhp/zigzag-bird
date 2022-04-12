@@ -3,7 +3,7 @@ using namespace std;
 cot::cot()
 {
     X = SCREEN_WIDTH + 5;
-    Y = rand()%(SCREEN_HEIGHT*9/10 - GAP) + (SCREEN_HEIGHT/15);
+    Y = rand()%(SCREEN_HEIGHT*9/10 - (int)GAP) + (SCREEN_HEIGHT/15);
 }
 void cot::render(LTexture &top, LTexture &bottom)
 {

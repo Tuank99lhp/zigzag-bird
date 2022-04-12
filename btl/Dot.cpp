@@ -10,7 +10,7 @@ Dot::Dot()
     mVelX = 0;
     mVelY = 0;
 }
-Dot::Dot(int stx,int sty,int vx,int vy)
+Dot::Dot(double stx,double sty,double vx,double vy)
 {
     //Initialize the offsets
     mPosX = stx;
@@ -54,7 +54,7 @@ void Dot::move()
 
 void Dot::render()
 {
-    double XXX=25;
-    if (mVelY<0) XXX=-XXX;
-	mTexture.render( mPosX, mPosY, WIDTH, HEIGHT,XXX);
+    deg=abs(deg);
+    if (mVelY<0) deg*=-1;
+	mTexture.render( mPosX, mPosY, WIDTH, HEIGHT,deg);
 }
