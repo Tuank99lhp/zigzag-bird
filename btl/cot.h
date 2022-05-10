@@ -13,7 +13,7 @@ class cot
 		//The dimensions of the dot
 		const double WIDTH = 50;
 		const double GAP = 200;
-
+		bool scored= 0;
 		cot();
 
 		void render(LTexture &top, LTexture &bottom);

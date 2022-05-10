@@ -11,18 +11,27 @@ int Game:: Run()
 
 
     initSDL(window, gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-
+    bool tryagain=0;
+    int score = 0;
+    bool startgame = 0;
     LTexture gFPSTextTexture(gRenderer);
+    LTexture gScore(gRenderer);
     LTexture mp(gRenderer);
     mp.loadFromFile("image/bkgn.png");
 
+    Mix_Music *gMusic;
+    gMusic = Mix_LoadMUS( "music/bg1.mp3" );
 
     Dot bird(SCREEN_WIDTH/6, SCREEN_HEIGHT/2,0, 5);
     bird.mTexture.gRenderer = gRenderer;
     bird.mTexture.loadFromFile("image/ship2.png");
 
+    LTexture bird2(gRenderer);
+    bird2.loadFromFile("image/ship2.png");
+
     gFont = TTF_OpenFont( "lazy.ttf", 28 );
     gFPSTextTexture.gFont = gFont;
+    gScore.gFont = gFont;
 
     fpsTimer.start();
 
@@ -38,9 +47,47 @@ int Game:: Run()
 
     while (!quit)
     {
+
+        if (!startgame)
+        {
+            scrolling-=2;
+            if( scrolling < -mp.mWidth ) scrolling = 0;
+
+            mp.render(scrolling,0);
+            mp.render(scrolling + mp.mWidth,0);
+            bird2.render(SCREEN_WIDTH/6, SCREEN_HEIGHT/2,60,30);
+            timeText.str("");
+            timeText << "Press 1, 2, 3 to play! (Difficulty 1-3)";
+            gFPSTextTexture.loadFromRenderedText( timeText.str().c_str(), textColor );
+            gFPSTextTexture.render(SCREEN_WIDTH/2 - gameover.mWidth/2 + 30, SCREEN_HEIGHT/2 + gameover.mHeight/2);
+            SDL_RenderPresent(gRenderer);
+            while (SDL_PollEvent(&e) != 0)
+            {
+                if (e.type == SDL_QUIT) quit=true;
+                if (e.type == SDL_KEYDOWN)
+                {
+                    auto x = e.key.keysym.sym;
+                    if (x != SDLK_1 && x != SDLK_2 && x != SDLK_3) continue;
+                    if (x == SDLK_1) M = 200;
+                    if (x == SDLK_2) M = 150;
+                    if (x == SDLK_3) M = 100;
+                    startgame = true;
+                    bird.mVelY = -5;
+                }
+            }
+            continue;
+        }
+        if (tryagain)
+        {
+            score = 0;
+            bird.mPosY = SCREEN_HEIGHT/2;
+            bird.mVelY = -5;
+            while (!de.empty()) de.pop_back();
+            sinhcot = 0;
+            tryagain = 0;
+        }
         while( SDL_PollEvent( &e ) != 0 )
         {
-
             if( e.type == SDL_QUIT )
             {
                 quit = true;
@@ -57,7 +104,7 @@ int Game:: Run()
         mp.render(scrolling + mp.mWidth,0);
         bird.render();
         sinhcot++;
-        if (sinhcot == 100)
+        if (sinhcot == M)
         {
             sinhcot = 0;
             de.push_back(new cot);
@@ -74,41 +121,64 @@ int Game:: Run()
 
             for (auto it = de.begin(); it != de.end(); it ++)
             {
-
+                if (abs(trunc(bird.mPosX-(**it).X))<=10  && !(**it).scored) {score ++;(**it).scored = 1;}
                 //if (((x + bw > X && x < X + W)) && (y < Y - 5 || y + bh > Y + GAP + 5))
                 if (checkcollider(bird, (**it)))
                 {
                     gameover.render(SCREEN_WIDTH/2 - gameover.mWidth/2, SCREEN_HEIGHT/2 - gameover.mHeight/2);
+                    timeText.str("");
+                    timeText << "Press space to try again !";
+                    gFPSTextTexture.loadFromRenderedText( timeText.str().c_str(), textColor );
+                    gFPSTextTexture.render(SCREEN_WIDTH/2 - gameover.mWidth/2 + 100, SCREEN_HEIGHT/2 + gameover.mHeight/2);
                     SDL_RenderPresent(gRenderer);
-                    while (!quit)
+                    while (!quit && !tryagain)
                     {
-                        while( SDL_PollEvent( &e ) != 0 )
+                        while( SDL_PollEvent( &e ) != 0)
                         {
 
                             if( e.type == SDL_QUIT ) quit = true;
-
-
+                            if (e.type == SDL_KEYDOWN && (e.key.keysym.sym == SDLK_SPACE)) tryagain = true;
                         }
 
                     }
-                    quitSDL(window, gRenderer);
-                    return 1;
+                    if (quit)
+                    {
+                        quitSDL(window, gRenderer);
+                        return 1;
+                    }
                 }
+                if (tryagain) break;
             }
         }
+        if (tryagain) continue;
+        if( Mix_PlayingMusic() == 0 )
+        {
+            //Play the music
+            Mix_PlayMusic( gMusic, -1 );
+        }
+
         float avgFPS = countedFrames / ( fpsTimer.getTicks() / 1000.f );
         if( avgFPS > 2000000 ) avgFPS = 0;
 
         //Set text to be rendered
         timeText.str( "" );
-        timeText << "FPS: " << avgFPS;
+        timeText << int(avgFPS);
 
         //Render text
         if( !gFPSTextTexture.loadFromRenderedText( timeText.str().c_str(), textColor ) )
         {
             printf( "Unable to render FPS texture!\n" );
         }
-        gFPSTextTexture.render(0,0,100,25);
+        gFPSTextTexture.render(0,0,15,15);
+        timeText.str( "" );
+        timeText << "Score: "<<score;
+
+        //Render text
+        if( !gScore.loadFromRenderedText( timeText.str().c_str(), textColor ) )
+        {
+            printf( "Unable to render FPS texture!\n" );
+        }
+        gScore.render(SCREEN_WIDTH-60,0,60,20);
         SDL_RenderPresent(gRenderer);
         ++countedFrames;
 
@@ -146,13 +216,15 @@ bool Game::checkcollider(Dot &b, cot &c)
                                 Point(c.X+c.WIDTH-5,0.0),
                                 Point(c.X+c.WIDTH-5,c.Y-10),
                                 Point(c.X+5,c.Y-10),
-                                Point(c.X+5,0.0)};
+                                Point(c.X+5,0.0)
+                               };
     double nY=c.Y + c.GAP + 10;
     vector<Point<double> > v3= {Point(c.X+5,nY),
                                 Point(c.X+c.WIDTH-5,nY),
                                 Point(c.X+c.WIDTH-5,1.0*SCREEN_HEIGHT),
                                 Point(c.X+5,1.0*SCREEN_HEIGHT),
-                                Point(c.X+5,nY)};
+                                Point(c.X+5,nY)
+                               };
     for (int i=0; i<4; ++i)
     {
         for (int j=0; j<4; ++j)

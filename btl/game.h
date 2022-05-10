@@ -45,7 +45,7 @@ class Game
 
 			//In memory text stream
 		stringstream timeText;
-
+		int M = 0;
 			//Start counting frames per second
 		int countedFrames = 0;
         TTF_Font* gFont = NULL;

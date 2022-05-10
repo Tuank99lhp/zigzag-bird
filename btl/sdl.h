@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal = false);
