@@ -38,6 +38,8 @@
 		<Unit filename="LTexture.h" />
 		<Unit filename="LTimer.cpp" />
 		<Unit filename="LTimer.h" />
+		<Unit filename="Particle.cpp" />
+		<Unit filename="Particle.h" />
 		<Unit filename="cot.cpp" />
 		<Unit filename="cot.h" />
 		<Unit filename="game.cpp" />

@@ -17,7 +17,7 @@ class LTexture
 		~LTexture();
 
 		//Loads image at specified path
-		bool loadFromFile( string path );
+		bool loadFromFile( string path, int st = 0);
 
 		TTF_Font* gFont = NULL;
         bool loadFromRenderedText( std::string textureText, SDL_Color textColor );

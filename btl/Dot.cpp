@@ -1,4 +1,5 @@
 #include "Dot.h"
+#include <cmath>
 using namespace std;
 Dot::Dot()
 {
@@ -9,6 +10,7 @@ Dot::Dot()
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
+
 }
 Dot::Dot(double stx,double sty,double vx,double vy)
 {
@@ -51,10 +53,36 @@ void Dot::move()
         mPosY -= mVelY;
     }
 }
-
 void Dot::render()
 {
-    deg=abs(deg);
-    if (mVelY<0) deg*=-1;
-	mTexture.render( mPosX, mPosY, WIDTH, HEIGHT,deg);
+    if (mVelY<0)
+    {
+        curdeg-=10;
+        if (curdeg < -deg) curdeg = -deg;
+    }
+    else
+    {
+        curdeg+=10;
+        if (curdeg > deg) curdeg = deg;
+    }
+	mTexture.render( mPosX, mPosY, WIDTH, HEIGHT,curdeg);
+
+
+	par.push_back(new Particle(mPosX, mPosY, mTexture.gRenderer, curdeg));
+
+    Particle *it;
+
+	for (int i = 0; i < par.size(); ++i)
+    {
+        it = par[i];
+        while (it != NULL && it->isDead())
+        {
+            swap((*it),(*par.back()));
+            delete par.back();
+            par.pop_back();
+        }
+        if (it != NULL) it->render();
+    }
+
+
 }

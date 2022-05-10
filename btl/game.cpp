@@ -6,6 +6,7 @@ Game:: Game()
 
 int Game:: Run()
 {
+
     srand(time(NULL));
 
 
@@ -33,7 +34,7 @@ int Game:: Run()
 
 
     LTexture gameover(gRenderer);
-    gameover.loadFromFile("image/GAMEOVER.png");
+    gameover.loadFromFile("image/GAMEOVER.png", 1);
 
     while (!quit)
     {
@@ -69,69 +70,61 @@ int Game:: Run()
                 de.pop_front();
             }
             for (auto it = de.begin(); it != de.end(); it ++)
-              (*it)->render(top, bottom);
+                (*it)->render(top, bottom);
 
-        for (auto it = de.begin(); it != de.end(); it ++)
-         {
-             int X,Y,W,GAP,x,y,bw,bh;
-             X = (*it)->X;
-             Y = (*it)->Y;
-             W = (*it)->WIDTH;
-             GAP = (*it)->GAP;
-             x = bird.mPosX;
-             y = bird.mPosY;
-             bw= bird.WIDTH;
-             bh= bird.HEIGHT;
-             //if (((x + bw > X && x < X + W)) && (y < Y - 5 || y + bh > Y + GAP + 5))
-             if (checkcollider(bird, (**it)))
-             {
-                 gameover.render(SCREEN_WIDTH/2 - gameover.mWidth/2, SCREEN_HEIGHT/2 - gameover.mHeight/2);
-                 SDL_RenderPresent(gRenderer);
-                 while (!quit)
-                 {
-                    while( SDL_PollEvent( &e ) != 0 )
+            for (auto it = de.begin(); it != de.end(); it ++)
+            {
+
+                //if (((x + bw > X && x < X + W)) && (y < Y - 5 || y + bh > Y + GAP + 5))
+                if (checkcollider(bird, (**it)))
+                {
+                    gameover.render(SCREEN_WIDTH/2 - gameover.mWidth/2, SCREEN_HEIGHT/2 - gameover.mHeight/2);
+                    SDL_RenderPresent(gRenderer);
+                    while (!quit)
                     {
+                        while( SDL_PollEvent( &e ) != 0 )
+                        {
 
-                       if( e.type == SDL_QUIT ) quit = true;
+                            if( e.type == SDL_QUIT ) quit = true;
 
+
+                        }
 
                     }
-
-                 }
-                 quitSDL(window, gRenderer);
-                 return 1;
-             }
-          }
-         }
+                    quitSDL(window, gRenderer);
+                    return 1;
+                }
+            }
+        }
         float avgFPS = countedFrames / ( fpsTimer.getTicks() / 1000.f );
         if( avgFPS > 2000000 ) avgFPS = 0;
 
-				//Set text to be rendered
-				timeText.str( "" );
-				timeText << "FPS: " << avgFPS;
+        //Set text to be rendered
+        timeText.str( "" );
+        timeText << "FPS: " << avgFPS;
 
-				//Render text
-				if( !gFPSTextTexture.loadFromRenderedText( timeText.str().c_str(), textColor ) )
-				{
-					printf( "Unable to render FPS texture!\n" );
-				}
+        //Render text
+        if( !gFPSTextTexture.loadFromRenderedText( timeText.str().c_str(), textColor ) )
+        {
+            printf( "Unable to render FPS texture!\n" );
+        }
         gFPSTextTexture.render(0,0,100,25);
         SDL_RenderPresent(gRenderer);
         ++countedFrames;
 
-				//If frame finished early
-		int frameTicks = capTimer.getTicks();
-		if( frameTicks < SCREEN_TICK_PER_FRAME )
-		{
-			//Wait remaining time
-			SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
-		}
+        //If frame finished early
+        int frameTicks = capTimer.getTicks();
+        if( frameTicks < SCREEN_TICK_PER_FRAME )
+        {
+            //Wait remaining time
+            SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
+        }
 
     }
     quitSDL(window, gRenderer);
     return 1;
 }
-Point<double> Game::xoay(Point<double> a, Point<double> b, double deg)
+static Point<double> xoay(Point<double> a, Point<double> b, double deg)
 {
     a.x-=b.x;
     a.y-=b.y;
@@ -143,15 +136,30 @@ Point<double> Game::xoay(Point<double> a, Point<double> b, double deg)
 bool Game::checkcollider(Dot &b, cot &c)
 {
     Point cen(b.mPosX + b.WIDTH/2, b.mPosY + b.HEIGHT/2);
-    vector<Point<double> > v1={xoay(Point(b.mPosX,b.mPosY),cen,b.deg),xoay(Point(b.mPosX+b.WIDTH,b.mPosY),cen,b.deg),xoay(Point(b.mPosX+b.WIDTH,b.mPosY+b.HEIGHT),cen,b.deg),xoay(Point(b.mPosX,b.mPosY+b.HEIGHT),cen,b.deg),xoay(Point(b.mPosX,b.mPosY),cen,b.deg)};
-    vector<Point<double> > v2={Point(c.X,0.0),Point(c.X+c.WIDTH,0.0),Point(c.X+c.WIDTH,c.Y-20),Point(c.X,c.Y-20),Point(c.X,0.0)};
-    double nY=c.Y + c.GAP + 20;
-    vector<Point<double> > v3={Point(c.X,nY),Point(c.X+c.WIDTH,nY),Point(c.X+c.WIDTH,1.0*SCREEN_HEIGHT),Point(c.X,1.0*SCREEN_HEIGHT),Point(c.X,nY)};
-    for (int i=0;i<4;++i)
+    vector<Point<double> > v1= {xoay(Point(b.mPosX,b.mPosY),cen,b.curdeg),
+                                xoay(Point(b.mPosX+b.WIDTH,b.mPosY),cen,b.curdeg),
+                                xoay(Point(b.mPosX+b.WIDTH,b.mPosY+b.HEIGHT),cen,b.curdeg),
+                                xoay(Point(b.mPosX,b.mPosY+b.HEIGHT),cen,b.curdeg),
+                                xoay(Point(b.mPosX,b.mPosY),cen,b.curdeg)
+                               };
+    vector<Point<double> > v2= {Point(c.X+5,0.0),
+                                Point(c.X+c.WIDTH-5,0.0),
+                                Point(c.X+c.WIDTH-5,c.Y-10),
+                                Point(c.X+5,c.Y-10),
+                                Point(c.X+5,0.0)};
+    double nY=c.Y + c.GAP + 10;
+    vector<Point<double> > v3= {Point(c.X+5,nY),
+                                Point(c.X+c.WIDTH-5,nY),
+                                Point(c.X+c.WIDTH-5,1.0*SCREEN_HEIGHT),
+                                Point(c.X+5,1.0*SCREEN_HEIGHT),
+                                Point(c.X+5,nY)};
+    for (int i=0; i<4; ++i)
     {
-       for (int j=0;j<4;++j)
-        {if (!segInter(v1[i],v1[i+1],v2[j],v2[j+1]).empty()) return 1;
-        if (!segInter(v1[i],v1[i+1],v3[j],v3[j+1]).empty()) return 1;}
+        for (int j=0; j<4; ++j)
+        {
+            if (!segInter(v1[i],v1[i+1],v2[j],v2[j+1]).empty()) return 1;
+            if (!segInter(v1[i],v1[i+1],v3[j],v3[j+1]).empty()) return 1;
+        }
     }
     return 0;
 }

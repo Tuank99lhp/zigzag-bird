@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 LTexture::LTexture()
 {
 	//Initialize
@@ -24,7 +25,7 @@ LTexture::~LTexture()
 	free();
 }
 
-bool LTexture::loadFromFile( std::string path )
+bool LTexture::loadFromFile( string path, int st)
 {
 	//Get rid of preexisting texture
 	free();
@@ -41,8 +42,8 @@ bool LTexture::loadFromFile( std::string path )
 	else
 	{
 		//Color key image
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0xFF, 0xFF, 0xFF ) );
-
+		if (!st) SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0xFF, 0xFF, 0xFF ) );
+		else SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
 		//Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
 		if( newTexture == NULL )
@@ -139,4 +140,3 @@ void LTexture::render( int x, int y,int w,int h, double angle,SDL_Rect* clip, SD
 	//Render to screen
 	SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
-

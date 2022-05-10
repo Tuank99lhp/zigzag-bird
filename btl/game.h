@@ -55,6 +55,6 @@ class Game
         const int FPS=144;
         const int SCREEN_TICK_PER_FRAME=1000/FPS;
         bool checkcollider(Dot &b, cot &c);
-        Point<double> xoay(Point<double> a, Point<double> b, double deg);
+        //Point<double> xoay(Point<double> a, Point<double> b, double deg);
 };
 #endif // GAME_H

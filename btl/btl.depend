@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1649500600 source:e:\laptrinh\btl\main.cpp
+1652022563 source:e:\laptrinh\btl\main.cpp
 	"game.h"
 
 1649615047 source:e:\laptrinh\btl\sdl.cpp
@@ -8,13 +8,13 @@
 	<SDL_image.h>
 	"sdl.h"
 
-1649614983 e:\laptrinh\btl\sdl.h
+1652020575 e:\laptrinh\btl\sdl.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 
-1649739791 e:\laptrinh\btl\game.h
+1652020539 e:\laptrinh\btl\game.h
 	<iostream>
 	<vector>
 	<time.h>
@@ -34,23 +34,26 @@
 	"point.h"
 	"onsegment.h"
 
-1649774250 source:e:\laptrinh\btl\game.cpp
+1652088840 source:e:\laptrinh\btl\game.cpp
 	"Game.h"
 
-1649615228 e:\laptrinh\btl\ltexture.h
+1652022645 e:\laptrinh\btl\ltexture.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 	<string>
 
-1649744302 source:e:\laptrinh\btl\ltexture.cpp
+1652025381 source:e:\laptrinh\btl\ltexture.cpp
 	"LTexture.h"
 
-1649739446 source:e:\laptrinh\btl\dot.cpp
+1652190183 source:e:\laptrinh\btl\dot.cpp
 	"Dot.h"
+	<cmath>
 
-1649739474 e:\laptrinh\btl\dot.h
+1652088604 e:\laptrinh\btl\dot.h
 	"LTexture.h"
+	"Particle.h"
+	<vector>
 
 1649739492 e:\laptrinh\btl\cot.h
 	"LTexture.h"
@@ -74,9 +77,15 @@
 	"Point.h"
 	"OnSegment.h"
 
-1649740539 e:\laptrinh\btl\point.h
+1651767359 e:\laptrinh\btl\point.h
 	<tuple>
 
 1649737247 e:\laptrinh\btl\onsegment.h
 	"Point.h"
+
+1652190053 source:e:\laptrinh\btl\particle.cpp
+	"Particle.h"
+
+1652088980 e:\laptrinh\btl\particle.h
+	"LTexture.h"
 
