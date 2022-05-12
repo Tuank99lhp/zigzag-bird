@@ -10,14 +10,14 @@ class cot
     public:
         const int SCREEN_WIDTH = 1280;
         const int SCREEN_HEIGHT = 640;
-		//The dimensions of the dot
+
 		const double WIDTH = 50;
 		const double GAP = 200;
-		bool scored= 0;
+		bool scored = 0;
+
 		cot();
 
 		void render(LTexture &top, LTexture &bottom);
-
 
 		double X, Y;
 };

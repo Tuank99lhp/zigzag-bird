@@ -15,7 +15,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1652196890 e:\laptrinh\btl\game.h
+1652373550 e:\laptrinh\btl\game.h
 	<iostream>
 	<vector>
 	<time.h>
@@ -35,10 +35,10 @@
 	"point.h"
 	"onsegment.h"
 
-1652196919 source:e:\laptrinh\btl\game.cpp
+1652373164 source:e:\laptrinh\btl\game.cpp
 	"Game.h"
 
-1652022645 e:\laptrinh\btl\ltexture.h
+1652369780 e:\laptrinh\btl\ltexture.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -47,19 +47,19 @@
 1652025381 source:e:\laptrinh\btl\ltexture.cpp
 	"LTexture.h"
 
-1652190183 source:e:\laptrinh\btl\dot.cpp
+1652369372 source:e:\laptrinh\btl\dot.cpp
 	"Dot.h"
 	<cmath>
 
-1652088604 e:\laptrinh\btl\dot.h
+1652369743 e:\laptrinh\btl\dot.h
 	"LTexture.h"
 	"Particle.h"
 	<vector>
 
-1652196511 e:\laptrinh\btl\cot.h
+1652369683 e:\laptrinh\btl\cot.h
 	"LTexture.h"
 
-1649739519 source:e:\laptrinh\btl\cot.cpp
+1652368909 source:e:\laptrinh\btl\cot.cpp
 	"cot.h"
 
 1649613064 e:\laptrinh\btl\ltimer.h
@@ -84,9 +84,9 @@
 1649737247 e:\laptrinh\btl\onsegment.h
 	"Point.h"
 
-1652190053 source:e:\laptrinh\btl\particle.cpp
+1652369897 source:e:\laptrinh\btl\particle.cpp
 	"Particle.h"
 
-1652088980 e:\laptrinh\btl\particle.h
+1652369804 e:\laptrinh\btl\particle.h
 	"LTexture.h"
 

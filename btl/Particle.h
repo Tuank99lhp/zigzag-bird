@@ -9,7 +9,7 @@ class Particle
 		//Initialize position and animation
         const int SCREEN_WIDTH = 1280;
         const int SCREEN_HEIGHT = 640;
-		Particle( double x, double y ,SDL_Renderer* gRenderer,double st);
+		Particle(double x, double y, SDL_Renderer* gRenderer, double st, double deg);
 
 		//Shows the particle
 		void render();

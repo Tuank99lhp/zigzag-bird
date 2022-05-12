@@ -1,13 +1,14 @@
 #include "Particle.h"
 using namespace std;
-Particle::Particle( double x, double y, SDL_Renderer* gRenderer,double st)
+Particle::Particle( double x, double y, SDL_Renderer* gRenderer,double st, double deg)
 {
-    //Set offsets
     X = x - (rand() % 5);
-    if (st<0) Y = y + 35 + (rand()%10);
-    else Y = y - 15 + (rand()%10);
-    //Set type
+
+    if (st<0) Y = y + 35 * abs(st) / deg + (rand()%10);
+    else Y = y - 15 * st / deg + (rand()%10);
+
     mTexture.gRenderer = gRenderer;
+
     switch( rand() % 3 )
     {
     case 0:
@@ -26,11 +27,11 @@ Particle::Particle( double x, double y, SDL_Renderer* gRenderer,double st)
 
 void Particle::render()
 {
-    mTexture.render(X,Y);
+    mTexture.render(X, Y);
     if (mFrame)
     {
-        shimmer.render(X,Y);
-        Y+=2;
+        shimmer.render(X, Y);
+        Y += 2;
     }
     X = X - 5;
     mFrame= 1 - mFrame;

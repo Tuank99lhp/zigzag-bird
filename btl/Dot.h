@@ -14,12 +14,11 @@ class Dot
 		//The dimensions of the dot
 		const double WIDTH = 60;
 		const double HEIGHT = 30;
-        double deg=40;
-        double curdeg=0;
+        double deg = 40;
+        double curdeg = 0;
 		Dot();
-		Dot(double stx,double sty,double vx,double vy);
-
-		//Takes key presses and adjusts the dot's velocity
+		Dot(double stx, double sty, double vx, double vy);
+		double stVelY;
 		void handleEvent( SDL_Event& e );
 
 		//Moves the dot

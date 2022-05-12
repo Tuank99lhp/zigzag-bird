@@ -9,7 +9,7 @@ Dot::Dot()
 
     //Initialize the velocity
     mVelX = 0;
-    mVelY = 0;
+    stVelY = mVelY = 0;
 
 }
 Dot::Dot(double stx,double sty,double vx,double vy)
@@ -20,14 +20,14 @@ Dot::Dot(double stx,double sty,double vx,double vy)
 
     //Initialize the velocity
     mVelX = vx;
-    mVelY = vy;
+    stVelY = mVelY = vy;
 
 }
 void Dot::handleEvent( SDL_Event& e )
 {
     //If a key was pressed
-	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 ) mVelY = -mVelY;
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 ) mVelY = -mVelY;
+	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 ) mVelY = -stVelY;
+    else if( e.type == SDL_KEYUP && e.key.repeat == 0 ) mVelY = stVelY;
 
 }
 
@@ -55,20 +55,20 @@ void Dot::move()
 }
 void Dot::render()
 {
-    if (mVelY<0)
+    if (mVelY < 0)
     {
-        curdeg-=10;
+        curdeg -= 5;
         if (curdeg < -deg) curdeg = -deg;
     }
     else
     {
-        curdeg+=10;
+        curdeg += 5;
         if (curdeg > deg) curdeg = deg;
     }
-	mTexture.render( mPosX, mPosY, WIDTH, HEIGHT,curdeg);
+	mTexture.render(mPosX, mPosY, WIDTH, HEIGHT,curdeg);
 
 
-	par.push_back(new Particle(mPosX, mPosY, mTexture.gRenderer, curdeg));
+	par.push_back(new Particle(mPosX, mPosY, mTexture.gRenderer, curdeg, deg));
 
     Particle *it;
 
@@ -77,7 +77,7 @@ void Dot::render()
         it = par[i];
         while (it != NULL && it->isDead())
         {
-            swap((*it),(*par.back()));
+            swap((*it), (*par.back()));
             delete par.back();
             par.pop_back();
         }
