@@ -51,7 +51,7 @@ private:
     TTF_Font* gFont = NULL;
     const int SCREEN_WIDTH = 1280;
     const int SCREEN_HEIGHT = 640;
-    const char* WINDOW_TITLE = "con chim thieu nang";
+    const char* WINDOW_TITLE = "Zigzag Bird";
     const int FPS=200;
     const int SCREEN_TICK_PER_FRAME=1000/FPS;
     bool checkcollider(Dot &b, cot &c);
